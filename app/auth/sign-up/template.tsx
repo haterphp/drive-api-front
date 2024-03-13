@@ -2,24 +2,24 @@ import { PropsWithChildren } from "react";
 import { AuthFormContainer } from "../components/auth-form-container";
 import Link from "next/link";
 
-const LoginFormFooter = () => {
+const SignUpFormFooter = () => {
   return (
     <div className="flex items-center gap-1">
-      <p>Нет аккаунта?</p>
+      <p>Уже есть аккаунта?</p>
 
-      <Link href={"/auth/sign-up"} className="link">
-        Создать
+      <Link href={"/auth/login"} className="link">
+        Войти
       </Link>
     </div>
   );
 };
 
-export default function LoginPageTemplate({ children }: PropsWithChildren) {
+export default function SignUpPageTemplate({ children }: PropsWithChildren) {
   return (
     <AuthFormContainer
-      title="Авторизация"
+      title="Регистрация"
       children={children}
-      Footer={<LoginFormFooter />}
+      Footer={<SignUpFormFooter />}
     />
   );
 }

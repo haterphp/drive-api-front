@@ -1,9 +1,12 @@
+"use client";
+
 import {
   ChangeEventHandler,
   FocusEventHandler,
   FormEventHandler,
   HTMLInputTypeAttribute,
   useMemo,
+  useState,
 } from "react";
 
 import { IBaseComponentProps } from "../common/interfaces";
@@ -42,17 +45,64 @@ const Input = (props: IInputProps): JSX.Element => {
     feedback,
 
     isError = false,
+
+    onInput,
+    onFocus,
+    onBlur,
     ...rest
   } = props;
+
+  const [isFocus, setIsFocus] = useState(false);
+  const [isShouldStayLabelFloated, setIsShouldStayLabelFloated] =
+    useState(false);
 
   const innerId = useMemo(() => {
     return id ?? "input_" + Math.random().toString();
   }, [id]);
 
+  /** Element classnames */
+
+  const inputContainerClassname = useMemo(
+    () =>
+      makeClassname(
+        "input",
+        isError && "input--error",
+        isFocus && "input--focus",
+        className
+      ),
+    [isError, isFocus, className]
+  );
+
+  const inputLabelClassname = useMemo(
+    () =>
+      makeClassname(
+        "input__label",
+        isShouldStayLabelFloated && "input__label--stay-focus"
+      ),
+    [isShouldStayLabelFloated]
+  );
+
+  /** Event handlers */
+
+  const handleOnInput: FormEventHandler<HTMLInputElement> = (e) => {
+    setIsShouldStayLabelFloated(e.currentTarget.value !== "");
+    onInput && onInput(e);
+  };
+
+  const handleOnFocus: FocusEventHandler = (e) => {
+    setIsFocus(true);
+    onFocus && onFocus(e);
+  };
+
+  const handleOnBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    setIsFocus(false);
+    onBlur && onBlur(e);
+  };
+
   return (
-    <div className={makeClassname("input", className)}>
+    <div className={inputContainerClassname}>
       {label !== undefined && (
-        <label htmlFor={innerId} className="input__label">
+        <label htmlFor={innerId} className={inputLabelClassname}>
           {label}
         </label>
       )}
@@ -60,10 +110,10 @@ const Input = (props: IInputProps): JSX.Element => {
       <input
         type={type}
         id={innerId}
-        className={makeClassname(
-          "input__element",
-          isError && "input__element--error"
-        )}
+        className="input__element"
+        onInput={handleOnInput}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
         {...rest}
       />
 

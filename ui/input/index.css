@@ -1,7 +1,29 @@
+/* Styles for element container */
+
 .input {
-  @apply border border-slate-200 rounded-lg overflow-hidden;
+  @apply border border-slate-200 rounded-lg
+  overflow-hidden relative transition-colors;
+}
+
+.input.input--focus {
+  @apply border-violet-400;
 }
 
 .input__element {
-  @apply w-full px-3 py-2 outline-none;
+  @apply w-full px-3 pt-6 pb-2 outline-none;
+}
+
+/* Styles for label */
+
+.input__label {
+  @apply absolute top-4 left-3 transition-all;
+}
+
+.input--focus .input__label,
+.input__label--stay-focus {
+  @apply top-1 text-[14px];
+}
+
+.input--focus .input__label {
+  @apply text-violet-400;
 }

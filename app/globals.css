@@ -5,3 +5,9 @@
 * {
   @apply text-slate-700;
 }
+
+@layer components {
+  .link {
+    @apply transition-colors text-violet-400 hover:text-violet-600;
+  }
+}

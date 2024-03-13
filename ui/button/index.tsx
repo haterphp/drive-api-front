@@ -1,3 +1,5 @@
+"use client";
+
 import { MouseEventHandler, PropsWithChildren } from "react";
 
 import { IBaseComponentProps } from "../common/interfaces";
