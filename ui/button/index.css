@@ -1,0 +1,11 @@
+.btn {
+  @apply px-4 py-2 rounded-lg bg-slate-100 transition-colors;
+}
+
+.btn--color-primary {
+  @apply text-white bg-violet-500 hover:bg-violet-400 active:bg-violet-600;
+}
+
+.btn--color-secondary {
+  @apply text-white bg-black hover:bg-black/80 active:bg-black/70;
+}

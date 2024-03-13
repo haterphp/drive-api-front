@@ -1,0 +1,23 @@
+.auth_form {
+  @apply p-5 bg-white rounded-lg shadow-md shadow-violet-500;
+}
+
+/* Title */
+
+.auth_form__title {
+  @apply pb-3;
+}
+
+.auth_form__subtitle {
+  @apply font-bold text-[14px] uppercase text-violet-400;
+}
+
+.auth_form__title_content {
+  @apply text-[27px];
+}
+
+/* Footer */
+
+.auth_form__footer {
+  @apply border-t border-t-slate-200 pt-3;
+}

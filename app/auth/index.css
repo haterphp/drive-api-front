@@ -1,0 +1,7 @@
+.auth_layout {
+  @apply w-full h-screen bg-violet-400 flex items-center;
+}
+
+.auth_layout__container {
+  @apply px-2 mx-auto py-10 w-full max-w-[450px];
+}
