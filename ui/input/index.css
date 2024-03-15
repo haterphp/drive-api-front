@@ -13,6 +13,10 @@
   @apply w-full px-3 pt-6 pb-2 outline-none;
 }
 
+.input--error .input {
+  @apply border-red-500;
+}
+
 /* Styles for label */
 
 .input__label {
@@ -26,4 +30,18 @@
 
 .input--focus .input__label {
   @apply text-violet-400;
+}
+
+.input--error .input__label {
+  @apply text-red-500;
+}
+
+/* Styles for feedback */
+
+.input__feedback {
+  @apply text-[14px];
+}
+
+.input--error .input__feedback {
+  @apply text-red-500;
 }

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { AuthFormContainer } from "../components/auth-form-container";
+import { AuthFormContainer } from "../_components/auth-form-container";
 import Link from "next/link";
 
 const SignUpFormFooter = () => {

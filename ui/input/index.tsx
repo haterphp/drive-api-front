@@ -4,7 +4,9 @@ import {
   ChangeEventHandler,
   FocusEventHandler,
   FormEventHandler,
+  ForwardedRef,
   HTMLInputTypeAttribute,
+  forwardRef,
   useMemo,
   useState,
 } from "react";
@@ -28,6 +30,7 @@ interface IInputProps extends IBaseComponentProps, IInputEvents {
   type?: HTMLInputTypeAttribute;
   value?: string;
   placeholder?: string;
+  name?: string;
 
   /** Specific input props */
   label?: string;
@@ -35,7 +38,10 @@ interface IInputProps extends IBaseComponentProps, IInputEvents {
   isError?: boolean;
 }
 
-const Input = (props: IInputProps): JSX.Element => {
+const InputRenderFunction = (
+  props: IInputProps,
+  ref: ForwardedRef<HTMLInputElement>
+): JSX.Element => {
   const {
     type = "text",
     className,
@@ -63,13 +69,7 @@ const Input = (props: IInputProps): JSX.Element => {
   /** Element classnames */
 
   const inputContainerClassname = useMemo(
-    () =>
-      makeClassname(
-        "input",
-        isError && "input--error",
-        isFocus && "input--focus",
-        className
-      ),
+    () => makeClassname("input", isFocus && "input--focus", className),
     [isError, isFocus, className]
   );
 
@@ -100,22 +100,30 @@ const Input = (props: IInputProps): JSX.Element => {
   };
 
   return (
-    <div className={inputContainerClassname}>
-      {label !== undefined && (
-        <label htmlFor={innerId} className={inputLabelClassname}>
-          {label}
-        </label>
+    <div
+      className={makeClassname(
+        "flex flex-col gap-1 w-full",
+        isError && "input--error"
       )}
+    >
+      <div className={inputContainerClassname}>
+        {label !== undefined && (
+          <label htmlFor={innerId} className={inputLabelClassname}>
+            {label}
+          </label>
+        )}
 
-      <input
-        type={type}
-        id={innerId}
-        className="input__element"
-        onInput={handleOnInput}
-        onFocus={handleOnFocus}
-        onBlur={handleOnBlur}
-        {...rest}
-      />
+        <input
+          ref={ref}
+          type={type}
+          id={innerId}
+          className="input__element"
+          onInput={handleOnInput}
+          onFocus={handleOnFocus}
+          onBlur={handleOnBlur}
+          {...rest}
+        />
+      </div>
 
       {feedback !== undefined && (
         <span className="input__feedback">{feedback}</span>
@@ -123,5 +131,7 @@ const Input = (props: IInputProps): JSX.Element => {
     </div>
   );
 };
+
+const Input = forwardRef(InputRenderFunction);
 
 export { Input, type IInputProps };
